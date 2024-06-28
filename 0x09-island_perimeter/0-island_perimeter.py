@@ -4,18 +4,11 @@
 
 def island_perimeter(grid):
     """returns the perimeter of the island described in grid"""
+
+    if not grid or not grid[0]:
+        return 0
+
     height = len(grid) - 2
     width = len(grid[0]) - 2
 
     return height * width
-
-
-if __name__ == "__main__":
-    grid = [
-        [0, 0, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 0, 0],
-        [0, 0, 0, 0, 0, 0]
-    ]
-    print(island_perimeter(grid))
