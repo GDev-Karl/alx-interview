@@ -27,7 +27,8 @@ def isRoundWinner(n, x):
         x (int): The number of integers each player can remove in each turn.
 
     Returns:
-        str: The name of the player who wins the round, or None if there is no winner.
+        str: The name of the player who wins the round,
+        or None if there is no winner.
     """
     list_ = [i for i in range(1, n+1)]
     players = ['Maria', 'Ben']
@@ -48,14 +49,16 @@ def isRoundWinner(n, x):
 
 def isWinner(x, nums):
     """
-    Determines the winner of the Prime Game based on the number of rounds and the list of numbers.
+    Determines the winner of the Prime Game based on
+    the number of rounds and the list of numbers.
 
     Args:
         x (int): The number of rounds to play.
         nums (List[int]): The list of numbers to play the game with.
 
     Returns:
-        Optional[str]: The name of the winner if they won more than half the rounds, else None.
+        Optional[str]: The name of the winner if they
+        won more than half the rounds, else None.
     """
     winnerCounter = {'Maria': 0, 'Ben': 0}
 
