@@ -9,19 +9,21 @@ contain keys to the other boxes.
 
 def canUnlockAll(boxes):
     """
-     a method that determines if all the boxes can be opened.
-
-    :param boxes:
-    :return: True or False
+    Determines if all boxes can be opened.
+    :param boxes: List of lists, where each sublist contains keys to other boxes.
+    :return: True if all boxes can be opened, False otherwise.
     """
-    if not boxes or type(boxes) is not list:
-        return False
+    n = len(boxes)
+    opened = [False] * n  # Track if each box is opened
+    opened[0] = True  # Box 0 is always open
+    keys = [0]  # Start with the key to the first box
 
-    unlocked = [0]
-    for n in unlocked:
-        for key in boxes[n]:
-            if key not in unlocked and key < len(boxes):
-                unlocked.append(key)
-    if len(unlocked) == len(boxes):
-        return True
-    return False
+    while keys:
+        current = keys.pop(0)  # Take the next key
+        for key in boxes[current]:
+            if key < n and not opened[key]:  # Check if the key opens a valid and unopened box
+                opened[key] = True
+                keys.append(key)
+
+    # Check if all boxes are opened
+    return all(opened)
