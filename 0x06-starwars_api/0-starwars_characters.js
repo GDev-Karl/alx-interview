@@ -1,54 +1,20 @@
 #!/usr/bin/node
+const util = require("util");
+const request = util.promisify(require("request"));
+const filmID = process.argv[2];
 
-const request = require('request');
+async function starwarsCharacters(filmId) {
+  const endpoint = "https://swapi-api.hbtn.io/api/films/" + filmId;
+  let response = await (await request(endpoint)).body;
+  response = JSON.parse(response);
+  const characters = response.characters;
 
-// Ensure a movie ID is provided
-if (process.argv.length !== 3) {
-  console.error('Usage: ./0-starwars_characters.js <Movie ID>');
-  process.exit(1);
+  for (let i = 0; i < characters.length; i++) {
+    const urlCharacter = characters[i];
+    let character = await (await request(urlCharacter)).body;
+    character = JSON.parse(character);
+    console.log(character.name);
+  }
 }
 
-const movieId = process.argv[2];
-const apiUrl = `https://swapi-api.hbtn.io/api/films/${movieId}/`;
-
-// Fetch the movie details
-request(apiUrl, (error, response, body) => {
-  if (error) {
-    console.error('Error fetching data:', error);
-    return;
-  }
-
-  if (response.statusCode !== 200) {
-    console.error(`Failed to retrieve data. Status code: ${response.statusCode}`);
-    return;
-  }
-
-  const movieData = JSON.parse(body);
-  const characterUrls = movieData.characters;
-
-  // Helper function to fetch and print character names sequentially
-  const fetchCharacterNames = (index) => {
-    if (index >= characterUrls.length) return;
-
-    request(characterUrls[index], (err, res, charBody) => {
-      if (err) {
-        console.error('Error fetching character data:', err);
-        return;
-      }
-
-      if (res.statusCode !== 200) {
-        console.error(`Failed to retrieve character. Status code: ${res.statusCode}`);
-        return;
-      }
-
-      const characterData = JSON.parse(charBody);
-      console.log(characterData.name);
-
-      // Fetch the next character
-      fetchCharacterNames(index + 1);
-    });
-  };
-
-  // Start fetching characters
-  fetchCharacterNames(0);
-});
+starwarsCharacters(filmID);
