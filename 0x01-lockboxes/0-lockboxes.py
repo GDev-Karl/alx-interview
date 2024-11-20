@@ -10,7 +10,8 @@ contain keys to the other boxes.
 def canUnlockAll(boxes):
     """
     Determines if all boxes can be opened.
-    :param boxes: List of lists, where each sublist contains keys to other boxes.
+    :param boxes: List of lists, where each
+    sublist contains keys to other boxes.
     :return: True if all boxes can be opened, False otherwise.
     """
     n = len(boxes)
@@ -21,7 +22,7 @@ def canUnlockAll(boxes):
     while keys:
         current = keys.pop(0)  # Take the next key
         for key in boxes[current]:
-            if key < n and not opened[key]:  # Check if the key opens a valid and unopened box
+            if key < n and not opened[key]:
                 opened[key] = True
                 keys.append(key)
 
