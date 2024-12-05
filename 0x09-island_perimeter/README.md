@@ -87,7 +87,7 @@ if __name__ == "__main__":
     print(island_perimeter(grid))
 ```
 
-#### Example Usage
+#### Expected Output
 ```python
 guillaume@ubuntu:~/0x09$ ./0-main.py
 12
